@@ -1,0 +1,155 @@
+INSERT INTO `Profil` (`id_profil`,`nom_profil`,`mdp_profil`,`statut_profil`,`mail_profil`)
+VALUES
+    (1,"Armand","1234","Employe","armand@echoppe.fr"),
+    (2,"Alexandra","1234","Employe","alexandra@echoppe.fr"),
+    (3,"Persephone","1234","Employe","persephone@echoppe.fr"),
+    (4,"Archimage","1234","Client","swordsaresh@gmail.fr"),
+    (5,"ChasseuseDu34","1234","Client","emmadelisle@gmail.fr"),
+    (6,"Fitgirl","1234","Client","gagavig@yahoo.fr"),
+    (7,"La ligue","1234","Client","ligue@yahoo.fr"),
+    (8,"Mont Olympe","1234","Client","divinedivinite@gmail.fr"),
+    (9,"WarAndWisdom","1234","Client","hiboux@gmail.fr"),
+    (10,"Hades","1234","Client","lifeisdead@hotmail.fr"),
+    (11,"Shepard","1234","Client","n7@citadelle.fr"),
+    (12,"Normandy","1234","Client","humanityfirst@cerberus.fr");
+
+INSERT INTO `Client` (`id_client`,`nom_client`,`prenom_client`,`contact_client`,`categorie_client`,`coef_client`,`commercial_attribue_client`,`id_profil`)
+VALUES
+    (1,"Sword","Saresh","swordsaresh@gmail.fr",0,0,"Armand Ballard",4),
+    (2,"Delisle","Emma","09.48.75.64.89",0,0,"Armand Ballard",5),
+    (3,"Viguier","Gaëlle","07.42.84.14.20",0,0,"Alexandra Jackson",6),
+    (4,"La ligue",NULL,"ligue@yahoo.fr",1,15,"Perséphone",7),
+    (5,"Mont Olympe",NULL,"divinedivinite@gmail.fr",1,20,"Perséphone",8),
+    (6,"Athena",NULL,"hiboux@gmail.fr",0,0,"Alexandra Jackson",9),
+    (7,"Hadès",NULL,"lifeisdead@hotmail.fr",0,0,"Perséphone",10),
+    (8,"John","Shepard","n7@citadelle.fr",0,0,"Armand Ballard",11),
+    (9,"Normandy",NULL,"humanityfirst@cerberus.fr",1,18,"Alexandra Jackson",12);
+
+INSERT INTO `Adresse` (`id_adresse`,`num_rue_adresse`,`nom_rue_adresse`,`nom_ville_adresse`,`cp_adresse`,`id_client`)
+VALUES
+    (1,42,"Sodales Street","Reims","71286",1),
+    (2,120,"Nulla St.","Besançon","89871",2),
+    (3,218,"Egestas St.","Saint-Malo","05101",3),
+    (4,205,"Vectus. Avenue","Colomiers","34067",4),
+    (5,247,"Sagittis Rd.","Limoges","45644",5),
+    (6,213,"Egestas Ave","Le Puy-en-Velay","14377",6),
+    (7,110,"Libero. St.","Rueil-Malmaison","32338",7),
+    (8,107,"Hendrerit Rd.","Vannes","89307",8),
+    (9,132,"Integer Rd.","Chartres","48935",9);
+
+INSERT INTO `Catégorie` (`id_categorie`,`nom_categorie`,`id_categorie_1`)
+VALUES
+    (1,"Armes",NULL),
+    (2,"Armures",NULL),
+    (3,"Potions",NULL),
+    (4,"Magie",NULL),
+    (5,"Divers",NULL),
+    (6,"Corps à Corps",1),
+    (7,"Distance",1),
+    (8,"Epée",6),
+    (9,"Hache",6),
+    (10,"Masse",6),
+    (11,"Arc",7),
+    (12,"Arbalète",7),
+    (13,"Plaque",2),
+    (14,"Cuir",2);
+
+INSERT INTO `Fournisseur` (`id_fournisseur`,`nom_fournisseur`)
+VALUES
+    (1,"Hephaïstos Forge"),
+    (2,"Merlin inc."),
+    (3,"Paysans and co"),
+    (4,"All chimie");
+
+INSERT INTO `Produit` (`id_produit`,`nom_produit`,`description_produit`,`prix_produit`,`tva_produit`,`ref_produit`,`publication_produit`,`id_fournisseur`)
+VALUES
+    (1,"Excalibur","La seule et unique, la véritable Excalibur, en édition limitée!",500,13,"ARMEEP01",1,1),
+    (2,"Masamune","Pour ceux qui n`ont rien à compenser et qu`ils veulent le montrer",250,13,"ARMEEP02",1,1),
+    (3,"Hache en acier","Garantit 5000 arbres avant usure",50,10,"ARMEHA01",1,1),
+    (4,"Masse`paf","Dans tout les cas, c`est malin!",60,10,"ARMEMA01",1,1),
+    (5,"Arc de chasse","Vu à la télé. L`arc favori d`Artémis.",100,10,"ARMEARC01",1,1),
+    (6,"Arbalète","Le fleuron de la mécanique",250,10,"ARMEARB01",1,1),
+    (7,"Armure invisible","N`apparait pas",1500,20,"ARMU01",0,2),
+    (8,"Armure en plaque lourde","Une armure pour véritable bonhomme!",1200,20,"ARMUPL01",1,1),
+    (9,"Tenue en cuir","Pour ceux qui aiment la discrétion",350,20,"ARMUCU01",1,2),
+    (10,"Potion de vie","En cas de pépin",150,25,"POT01",1,4),
+    (11,"Potion de mana","Un coup de mou?",150,25,"POT02",1,4),
+    (12,"Potion d`invisibilit","Vous permettra de réussir votre infiltration sans avoir à vous battre",350,25,"POT03",1,4),
+    (13,"Ration 24h","Préparez avec amour!",25,10,"DIV01",1,3),
+    (14,"Ration 7j","Pour ceux qui partent à l`aventure",150,10,"DIV02",1,3);
+
+INSERT INTO `Définit` (`id_produit`, `id_categorie`)
+VALUES
+    (1,8),
+    (2,8),
+    (3,9),
+    (4,10),
+    (5,11),
+    (6,12),
+    (7,2),
+    (8,13),
+    (9,14),
+    (10,3),
+    (11,3),
+    (12,3),
+    (13,5),
+    (14,5);
+
+INSERT INTO `Photo` (`id_photo`,`nom_photo`,`lien_photo`,`id_produit`)
+VALUES
+    (1, "Excalibur.jpg","lien",1),
+    (2, "Excalibur2.jpg","lien",1),
+    (3, "Excalibur3.jpg","lien",1),
+    (4, "Masamune.jpg","lien",2),
+    (5, "Hache.jpg","lien",3),
+    (6, "Masse.jpg","lien",4),
+    (7, "Arc.jpg","lien",5),
+    (8, "Arbalète.jpg","lien",6),
+    (9, "Armure_invisible.jpg","lien",7),
+    (10, "Armure_en_plaque_lourde.jpg","lien",8),
+    (11, "Tenue_en_cuir.jpg","lien",9),
+    (12, "Potion_de_vie.jpg","lien",10),
+    (13, "Potion_de_mana.jpg","lien",11),
+    (14, "Potion_d_invisibilit.jpg","lien",12),
+    (15, "Ration_24h.jpg","lien",13),
+    (16, "Ration_7j.jpg","lien",14);
+
+INSERT INTO `Commande` (`id_commande`, `date_commande`, `reglement_commande`, `reduction_commande`, `coef_client_commande`, `nom_client_commande`, `prenom_client_commande`, `date_facture`, `num_rue_adresse_facture`, `nom_rue_adresse_facture`, `nom_ville_adresse_facture`, `cp_adresse_facture`, `pays_adresse_facture`, `num_rue_adresse_livraison`, `nom_rue_adresse_livraison`, `nom_ville_adresse_livraison`, `cp_adresse_livraison`, `pays_adresse_livraison`, `id_client`)
+VALUES
+    (1, "2022-08-18 04:59:57", 1, 10, 10, "Mont Olympe", NULL, "2022-08-18 04:59:57", "170", "chemin des Valkyries", "Categatt", "50000", "Valhala", "200", "route de la gloire", "Athènes", "14023", "Grèce",8),
+    (2, "2021-08-18 04:59:57", 1, 10, 10, "Mont Olympe", NULL, "2021-08-18 04:59:57", "170", "chemin des Valkyries", "Categatt", "50000", "Valhala", "200", "route de la gloire", "Athènes", "14023", "Grèce",8),
+    (3, "2020-08-18 04:59:57", 1, 10, 10, "Mont Olympe", NULL, "2020-08-18 04:59:57", "170", "chemin des Valkyries", "Categatt", "50000", "Valhala", "200", "route de la gloire", "Athènes", "14023", "Grèce",8);
+
+INSERT INTO `Contient` (`id_produit`,`id_commande`,`nom_produit_commande`,`prix_produit_commande`,`quantite_produit`,`tva_produit_commande`,`ref_produit_commande`)
+VALUES 
+    (1,1,"Excalibur",500,1,20,"ARMEEP01"),
+    (2,1,"Masamune",350,1,15,"ARMEEP02"),
+    (5,1,"Hache en acier",150,10,15,"ARMEHA01"),
+    (1,2,"Excalibur",500,1,20,"ARMEEP01"),
+    (2,2,"Masamune",350,1,15,"ARMEEP02"),
+    (5,2,"Hache en acier",150,10,15,"ARMEHA01"),
+    (1,3,"Excalibur",500,1,20,"ARMEEP01"),
+    (2,3,"Masamune",350,1,15,"ARMEEP02"),
+    (5,3,"Hache en acier",150,10,15,"ARMEHA01");
+
+INSERT INTO `Bon_de_livraison` (`id_bon_livraison`,`date_livraison`,`id_commande`)
+VALUES
+    (1,"2022-09-18 04:59:57",1),
+    (2,"2021-09-18 04:59:57",1),
+    (3,"2021-09-20 04:59:57",1),
+    (4,"2020-09-18 04:59:57",1),
+    (5,"2020-09-20 04:59:57",1);
+
+INSERT INTO `Livre` (`id_produit`,`id_bon_livraison`,`quantite_livree`)
+VALUES
+    (1,1,1),
+    (2,1,1),
+    (5,1,10),
+    (1,2,1),
+    (2,2,1),
+    (5,2,1),
+    (5,3,9),
+    (1,4,1),
+    (2,4,1),
+    (5,4,5),
+    (5,5,5);
