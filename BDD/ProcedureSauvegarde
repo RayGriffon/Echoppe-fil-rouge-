@@ -1,0 +1,7 @@
+Procédure de sauvegarde
+
+
+Nous utilisons une sauvegarde complète de base de données (BDD) et sauvegarde du journal des transactions.
+La taille de notre BDD nous permet de faire des sauvegardes régulièrement et rapidement, c’est pourquoi nous effectuerons une sauvegarde complète tout les jours à 20h.
+Dû à la nature de notre système, il est important de mettre en place des sauvegardes des journaux de transaction. Ainsi, nous aurons un journal sauvegardé chaque jour à 00h, 04h, 08h, 12h, 16h.
+La base echoppe_save sert de base de restauration

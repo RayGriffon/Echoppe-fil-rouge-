@@ -1,0 +1,162 @@
+/*Chiffre d'affaires mois par mois pour une année sélectionnée*/
+
+CREATE PROCEDURE ca_mois_par_mois(IN annee INT)
+BEGIN
+    SELECT 
+        MONTH(date_commande) AS mois,
+        SUM(prix_produit_commande * quantite_produit * (1 + tva_produit_commande)) AS chiffre_affaires
+    FROM 
+        Commande c
+        INNER JOIN Contient co ON c.id_commande = co.id_commande
+        INNER JOIN Produit p ON co.id_produit = p.id_produit
+    WHERE 
+        YEAR(date_commande) = annee
+        AND reglement_commande = 1
+    GROUP BY 
+        MONTH(date_commande);
+END;
+
+/*Chiffre d'affaires généré pour un fournisseur*/
+
+CREATE PROCEDURE ca_fournisseur(IN nom_fournisseur VARCHAR(250))
+BEGIN
+    SELECT 
+        SUM(prix_produit_commande * quantite_produit * (1 + tva_produit_commande)) AS chiffre_affaires
+    FROM 
+        Commande c
+        INNER JOIN Contient co ON c.id_commande = co.id_commande
+        INNER JOIN Produit p ON co.id_produit = p.id_produit
+        INNER JOIN Fournisseur f ON p.id_fournisseur = f.id_fournisseur
+    WHERE 
+        f.nom_fournisseur = nom_fournisseur
+        AND reglement_commande = 1;
+END;
+
+/*TOP 10 des produits les plus commandés pour une année sélectionnée (référence et nom du produit, quantité commandée, fournisseur)*/
+
+CREATE PROCEDURE top_10_produits_commandes(IN annee INT)
+BEGIN
+    SELECT 
+        p.ref_produit, 
+        p.nom_produit,
+        f.nom_fournisseur, 
+        SUM(co.quantite_produit) AS quantite_commandee
+    FROM 
+        Commande c
+        INNER JOIN Contient co ON c.id_commande = co.id_commande
+        INNER JOIN Produit p ON co.id_produit = p.id_produit
+        INNER JOIN Fournisseur f ON p.id_fournisseur = f.id_fournisseur
+    WHERE 
+        YEAR(c.date_commande) = annee
+        AND c.reglement_commande = 1
+    GROUP BY 
+        p.ref_produit, 
+        p.nom_produit,
+        f.nom_fournisseur
+    ORDER BY 
+        SUM(co.quantite_produit) DESC
+    LIMIT 10;
+END;
+
+/*TOP 10 des produits les plus rémunérateurs pour une année sélectionnée (référence et nom du produit, marge, fournisseur)*/
+
+CREATE PROCEDURE top_10_produits_remunerateurs(IN annee INT)
+BEGIN
+    SELECT p.ref_produit, p.nom_produit, SUM(cd.prix_produit_commande - (cd.prix_produit_commande * cd.tva_produit_commande / 100)) AS marge, f.nom_fournisseur
+    FROM Produit p
+    JOIN Fournisseur f ON p.id_fournisseur = f.id_fournisseur
+    JOIN Contient cd ON p.id_produit = cd.id_produit
+    JOIN Commande c ON cd.id_commande = c.id_commande
+    WHERE YEAR(c.date_commande) = annee AND c.reglement_commande = 1
+    GROUP BY p.id_produit
+    ORDER BY marge DESC
+    LIMIT 10;
+END
+
+/*Top 10 des clients en nombre de commandes ou chiffre d'affaires*/
+
+CREATE PROCEDURE top_10_clients_commandes()
+BEGIN
+    SELECT c.nom_client, COUNT(*) AS nombre_commandes
+    FROM Client c
+    INNER JOIN Commande com ON c.id_client = com.id_client
+    GROUP BY c.nom_client
+    ORDER BY nombre_commandes DESC
+    LIMIT 10;
+END 
+
+
+CREATE PROCEDURE top_10_clients_chiffre_affaires()
+BEGIN
+    SELECT c.nom_client, SUM(cd.prix_produit_commande * cd.quantite_produit * (1 + p.tva_produit)) AS chiffre_affaires
+    FROM Client c
+    INNER JOIN Commande com ON c.id_client = com.id_client
+    INNER JOIN Contient cd ON com.id_commande = cd.id_commande
+    INNER JOIN Produit p ON cd.id_produit = p.id_produit
+    GROUP BY c.nom_client
+    ORDER BY chiffre_affaires DESC
+    LIMIT 10;
+END
+
+/*Répartition du chiffre d'affaires par type de client*/
+
+CREATE PROCEDURE repartition_ca_type_client()
+BEGIN
+    SELECT CASE
+        WHEN c.categorie_client = 0 THEN 'Particulier'
+        WHEN c.categorie_client = 1 THEN 'Professionnel'
+        ELSE 'Inconnu'
+    END AS type_client, SUM(cd.prix_produit_commande * cd.quantite_produit * (1 + p.tva_produit)) AS chiffre_affaires
+    FROM Client c
+    INNER JOIN Commande com ON c.id_client = com.id_client
+    INNER JOIN Contient cd ON com.id_commande = cd.id_commande
+    INNER JOIN Produit p ON cd.id_produit = p.id_produit
+    GROUP BY type_client;
+END
+
+/*Nombre de commandes en cours de livraison.*/
+
+CREATE PROCEDURE nombre_commandes_en_cours_de_livraison()
+BEGIN
+    SELECT COUNT(*) AS nombre_commandes
+    FROM Commande com
+    INNER JOIN Bon_de_livraison bl ON com.id_commande = bl.id_commande
+    WHERE bl.date_livraison IS NULL;
+END 
+
+/*Commandes non soldées*/
+
+CREATE PROCEDURE select_commandes_incompletes()
+BEGIN
+    SELECT Commande.*
+    FROM Commande
+    JOIN Bon_de_livraison ON Commande.id_commande = Bon_de_livraison.id_commande
+    JOIN Livre ON Bon_de_livraison.id_bon_livraison = Livre.id_bon_livraison
+    JOIN Contient ON Commande.id_commande = Contient.id_commande AND Livre.id_produit = Contient.id_produit
+    GROUP BY Commande.id_commande
+    HAVING SUM(Livre.quantite_livree) < SUM(Contient.quantite_produit);
+END
+
+/*Délais moyen entre la date de commande et de facturation*/
+
+CREATE PROCEDURE delai_moyen_livraison()
+BEGIN
+    SELECT AVG(DATEDIFF(Commande.date_commande, Bon_de_livraison.date_livraison)) AS delai_moyen
+    FROM Commande
+    JOIN Bon_de_livraison ON Commande.id_commande = Bon_de_livraison.id_commande;
+END
+
+/*Vue correspondant à la jointure Produits - Fournisseurs*/
+
+CREATE VIEW Produit_Fournisseur AS
+SELECT Produit.id_produit, Produit.nom_produit, Produit.description_produit, Produit.prix_produit, Produit.tva_produit, Produit.ref_produit, Produit.publication_produit, Fournisseur.nom_fournisseur
+FROM Produit
+INNER JOIN Fournisseur ON Produit.id_fournisseur = Fournisseur.id_fournisseur;
+
+/*Vue correspondant à la jointure Produits - Catégorie/Sous catégorie*/
+
+CREATE VIEW ProduitsCategorie AS 
+SELECT Produit.*, Catégorie.nom_categorie
+FROM Produit 
+INNER JOIN Définit ON Produit.id_produit = Définit.id_produit 
+INNER JOIN Catégorie ON Définit.id_categorie = Catégorie.id_categorie;
