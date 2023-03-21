@@ -1,0 +1,54 @@
+Scénario détaillé pour le cas d'utilisation "Enregistrer une commande"
+
+1. Description :
+Ce cas d'utilisation permet d'enregistrer une commande.
+
+2. Flux d'évènements
+
+    a. Conditions
+
+        Le client doit posséder un compte.
+
+    b. Résultat
+
+        La commande est enregistrée.
+
+3. Flot Nominal
+
+    1 >> Le client se connecte
+
+    2 >> Le client parcourt les catégories et les sous-catégories
+
+    3 >> Le client selectionne un produit, la fiche du produit s'affiche.
+
+    4 >> Le client ajoute le produit à son panier
+
+    5 >> Le client répète les étapes 2 à 5 autant qu'il le désire
+
+    6 >> Le client clique sur le panier. L'écran avec tout le contenu de son panier s'affiche.
+
+    7 >> Le client peut éditer son panier en modifiant la quantité d'un article déjà présent ou en supprimant un article présent. Il peut recommencer l'étape 2
+
+    8 >> Le client valide le panier. L'écran de récapitulation du panier s'affiche.
+
+    9 >> Le client valide. L'écran de saisie de l'adresse de livraison et de facturation s'affiche.
+
+    10 >> Le client saisie ses données ou utilise celles déjà enregistré dans son profil puis valide.
+
+    11 >> L'écran de paiement s'affiche. Il doit payer la totalité de la commande à cet instant.
+
+    12 >> Le paiement est validé, la commande est enregistrée.
+
+4. Flots Alternatifs
+
+    4 >> Le client n'ajoute pas le produit à son panier
+
+        Il ne se passe rien
+
+    8 >> Le client quitte la page sans valider son panier.
+
+        Le panier est sauvegardé et le client peut revenir plus tard 
+
+    12 >> Le paiement n'est pas valide
+
+        Un écran informant le client que le paiement n'est pas valide s'affiche. Il peut recommencer l'étape.
