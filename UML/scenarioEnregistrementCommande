@@ -8,6 +8,7 @@ Ce cas d'utilisation permet d'enregistrer une commande.
     a. Conditions
 
         Le client doit posséder un compte.
+        Le client est connecté
 
     b. Résultat
 
@@ -16,8 +17,9 @@ Ce cas d'utilisation permet d'enregistrer une commande.
 3. Flot Nominal
 
     1 >> Le client se connecte
+    1 << Le système affiche la liste des catégories
 
-    2 >> Le client parcourt les catégories et les sous-catégories
+    2 >> Le client parcourt les catégories et les sous-catégories 
 
     3 >> Le client selectionne un produit, la fiche du produit s'affiche.
 
