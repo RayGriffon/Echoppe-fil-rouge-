@@ -16,6 +16,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
 
     <script src="https://kit.fontawesome.com/3fcc537624.js" crossorigin="anonymous"></script>
+    <script src="js/formulaireControle.js" ></script>
 </head>
 
 <body>
@@ -68,94 +69,43 @@
 
         <section>
 
-            <div class="container-fluid">
-                <div class="row mt-3">
-                    <div class="col-12 offset-md-1 col-md-8 mt-3">
-                        <div class="row mt-3">
-                            <div class="col-5 col-md-2">
-                                <img src="https://picsum.photos/150/150?random=1">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-md-3 col-md-6 justify-content-center mt-5"  style="height: 100vh;">
+                        <h1 class="mt-5">Inscription</h1>
+                        <form class="row" action="" method="post" onsubmit="return validateForm()">
+                            <div class="col-12 col-md-12">
+                                <label for="identifiant" class="form-label"></label>
+                                <input name="identifiant" type="text" class="form-control w-100" id="identifiant"
+                                    placeholder="Identifiant">
                             </div>
-                            <div class="col-6 col-md-7 mt-3">
-                                <h1>Nom du produit 1</h1>
-                                <h2>Prix du produit 1</h2>
+                            <div class="col-12 col-md-12">
+                                <label for="nom" class="form-label"></label>
+                                <input name="nom" type="text" class="form-control w-100" id="nom"
+                                    placeholder="Nom">
                             </div>
-                            <div class="col-6 col-md-3 d-flex">
-                                <input id="number" type="number" value="1" class="w-25" />
-                                <h2 class="mt-5 mx-3">Prix total</h2>
+                            <div class="col-12 col-md-12">
+                                <label for="prenom" class="form-label"></label>
+                                <input name="prenom" type="text" class="form-control w-100" id="prenom"
+                                    placeholder="Prenom">
                             </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-5 col-md-2">
-                                <img src="https://picsum.photos/150/150?random=2">
+                            <div class="col-12 col-md-12">
+                                <label for="mail" class="form-label"></label>
+                                <input name="mail" type="email" class="form-control w-100" id="mail"
+                                    placeholder="Adresse mail">
                             </div>
-                            <div class="col-6 col-md-7 mt-3">
-                                <h1>Nom du produit 2</h1>
-                                <h2>Prix du produit 2</h2>
+                            <div class="col-12">
+                                <label for="mdp" class="form-label"></label>
+                                <input name="mdp" type="password" class="form-control w-100" id="mdp" placeholder="Mot de passe">
                             </div>
-                            <div class="col-6 col-md-3 d-flex">
-                                <input id="number" type="number" value="1" class="w-25" />
-                                <h2 class="mt-5 mx-3">Prix total</h2>
+                            <div class="col-12">
+                                <label for="mdpConfirm" class="form-label"></label>
+                                <input name="mdpConfirm" type="password" class="form-control w-100" id="mdpConfirm" placeholder="Confirmation de mot de passe">
                             </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-5 col-md-2">
-                                <img src="https://picsum.photos/150/150?random=3">
+                            <div class="offset-6 col-6 my-2">
+                                <button type="submit" class="btn btn-primary w-100">S'enregistrer</button>
                             </div>
-                            <div class="col-6 col-md-7 mt-3">
-                                <h1>Nom du produit 3</h1>
-                                <h2>Prix du produit 3</h2>
-                            </div>
-                            <div class="col-6 col-md-3 d-flex">
-                                <input id="number" type="number" value="1" class="w-25" />
-                                <h2 class="mt-5 mx-3">Prix total</h2>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-5 col-md-2">
-                                <img src="https://picsum.photos/150/150?random=4">
-                            </div>
-                            <div class="col-6 col-md-7 mt-3">
-                                <h1>Nom du produit 4</h1>
-                                <h2>Prix du produit 4</h2>
-                            </div>
-                            <div class="col-6 col-md-3 d-flex">
-                                <input id="number" type="number" value="1" class="w-25" />
-                                <h2 class="mt-5 mx-3">Prix total</h2>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-5 col-md-2">
-                                <img src="https://picsum.photos/150/150?random=5">
-                            </div>
-                            <div class="col-6 col-md-7 mt-3">
-                                <h1>Nom du produit 5</h1>
-                                <h2>Prix du produit 5</h2>
-                            </div>
-                            <div class="col-6 col-md-3 d-flex">
-                                <input id="number" type="number" value="1" class="w-25" />
-                                <h2 class="mt-5 mx-3">Prix total</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 gx-5 px-5 position-fixed end-0 d-none d-md-block">
-                        <div class="border p-3">
-                            <p>Sous-total</p>
-                            <p>Frais de port</p>
-                            <p>Réduction</p>
-                            <hr>
-                            <p>Total</p>
-                        </div>
-                        <button type="button" class="btn rounded-pill my-3">Valider ma commande</button>
-                    </div>
-                    <div class="col-12 d-md-none d-sm-block mt-5">
-                        <div class="border p-3">
-                            <p>Sous-total</p>
-                            <p>Frais de port</p>
-                            <p>Réduction</p>
-                            <hr>
-                            <p>Total</p>
-                        </div>
-                        <button type="button" class="btn rounded-pill my-3">Valider ma commande</button>
+                        </form>
                     </div>
                 </div>
             </div>
