@@ -79,6 +79,7 @@ BEGIN
     LIMIT 10;
 END
 
+;
 CALL top_10_produits_remunerateurs(2020);
 
 /*Top 10 des clients en nombre de commandes ou chiffre d'affaires*/
@@ -93,6 +94,7 @@ BEGIN
     LIMIT 10;
 END 
 
+;
 CALL top_10_clients_commandes();
 
 
@@ -108,6 +110,7 @@ BEGIN
     LIMIT 10;
 END
 
+;
 CALL top_10_clients_chiffre_affaires();
 
 /*Répartition du chiffre d'affaires par type de client*/
@@ -126,6 +129,7 @@ BEGIN
     GROUP BY type_client;
 END
 
+;
 CALL repartition_ca_type_client();
 
 /*Nombre de commandes en cours de livraison.*/
@@ -138,6 +142,7 @@ BEGIN
     WHERE bl.date_livraison IS NULL;
 END 
 
+;
 CALL nombre_commandes_en_cours_de_livraison();
 
 /*Commandes non soldées*/
@@ -153,6 +158,7 @@ BEGIN
     HAVING SUM(Livre.quantite_livree) < SUM(Contient.quantite_produit);
 END
 
+;
 CALL select_commandes_incompletes();
 
 /*Délais moyen entre la date de commande et de facturation*/
@@ -164,6 +170,7 @@ BEGIN
     JOIN Bon_de_livraison ON Commande.id_commande = Bon_de_livraison.id_commande;
 END
 
+;
 CALL delai_moyen_livraison();
 
 /*Vue correspondant à la jointure Produits - Fournisseurs*/

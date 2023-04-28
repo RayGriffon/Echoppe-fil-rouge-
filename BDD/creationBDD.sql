@@ -1,3 +1,8 @@
+-- Active: 1681980097693@@127.0.0.1@3306@Echoppe
+CREATE DATABASE IF NOT EXISTS Echoppe;
+
+USE Echoppe;
+
 CREATE TABLE Profil(
    id_profil INT AUTO_INCREMENT,
    nom_profil VARCHAR(50) ,

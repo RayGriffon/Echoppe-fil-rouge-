@@ -1,3 +1,4 @@
+
 INSERT INTO `Profil` (`id_profil`,`nom_profil`,`mdp_profil`,`statut_profil`,`mail_profil`)
 VALUES
     (1,"Armand","1234","Employe","armand@echoppe.fr"),
@@ -117,8 +118,8 @@ VALUES
 INSERT INTO `Commande` (`id_commande`, `date_commande`, `reglement_commande`, `reduction_commande`, `coef_client_commande`, `nom_client_commande`, `prenom_client_commande`, `date_facture`, `num_rue_adresse_facture`, `nom_rue_adresse_facture`, `nom_ville_adresse_facture`, `cp_adresse_facture`, `pays_adresse_facture`, `num_rue_adresse_livraison`, `nom_rue_adresse_livraison`, `nom_ville_adresse_livraison`, `cp_adresse_livraison`, `pays_adresse_livraison`, `id_client`)
 VALUES
     (1, "2022-08-18 04:59:57", 1, 10, 10, "Mont Olympe", NULL, "2022-08-18 04:59:57", "170", "chemin des Valkyries", "Categatt", "50000", "Valhala", "200", "route de la gloire", "Athènes", "14023", "Grèce",8),
-    (2, "2021-08-18 04:59:57", 1, 10, 10, "Mont Olympe", NULL, "2021-08-18 04:59:57", "170", "chemin des Valkyries", "Categatt", "50000", "Valhala", "200", "route de la gloire", "Athènes", "14023", "Grèce",8),
-    (3, "2020-08-18 04:59:57", 1, 10, 10, "Mont Olympe", NULL, "2020-08-18 04:59:57", "170", "chemin des Valkyries", "Categatt", "50000", "Valhala", "200", "route de la gloire", "Athènes", "14023", "Grèce",8);
+    (2, "2021-07-20 04:59:57", 1, 10, 10, "Mont Olympe", NULL, "2021-07-20 04:59:57", "170", "chemin des Valkyries", "Categatt", "50000", "Valhala", "200", "route de la gloire", "Athènes", "14023", "Grèce",8),
+    (3, "2020-06-19 04:59:57", 1, 10, 10, "Mont Olympe", NULL, "2020-06-19 04:59:57", "170", "chemin des Valkyries", "Categatt", "50000", "Valhala", "200", "route de la gloire", "Athènes", "14023", "Grèce",8);
 
 INSERT INTO `Contient` (`id_produit`,`id_commande`,`nom_produit_commande`,`prix_produit_commande`,`quantite_produit`,`tva_produit_commande`,`ref_produit_commande`)
 VALUES 
