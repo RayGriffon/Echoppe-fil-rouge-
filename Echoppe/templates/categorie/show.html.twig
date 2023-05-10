@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie
+{% endblock %}
+
+{% block body %}
+	<h1>Categorie</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ categorie.id }}</td>
+			</tr>
+			<tr>
+				<th>NomCategorie</th>
+				<td>{{ categorie.nomCategorie }}</td>
+			</tr>
+			<tr>
+				<th>UpdatedAt</th>
+				<td>{{ categorie.updatedAt ? categorie.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>ImageName</th>
+				<td>{{ categorie.imageName }}</td>
+			</tr>
+			<tr>
+				<th>Catégorie Parent</th>
+				<td>
+					{% for categorie in categorie.categoriesParents %}
+						<span class="badge bg-primary">{{ categorie.nomCategorie }}</span>
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>Image</th>
+				<td><img style="max-width: 500px;" src="{{ vich_uploader_asset(categorie, 'imageFile') }}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_categorie_index') }}">back to list</a>
+
+	<a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">edit</a>
+
+	{{ include('categorie/_delete_form.html.twig') }}
+{% endblock %}
+

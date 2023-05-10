@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!
+{% endblock %}
+
+{% block body %}
+	<section>
+		<div class="container-fluid">
+			<div class="row mt-5">
+				{% set x = 0 %}
+				{% for categorie in categories %}
+					{% if x == 0 %}
+						<div class="offset-md-2 col-md-2 col-6">
+					{% endif %}
+					{% if x > 0 and x < 3 %}
+						<div class="md-2 col-md-2 col-6">
+					{% endif %}
+                    {% if x == 3 %}
+						{% set x = -1 %}
+						<div class="md-2 col-md-2 col-6">
+					{% endif %}
+                        {% set x = x + 1 %}
+							<div>
+								<a href="categorie.html" class="column" id="imgCategorie">
+									<figure>
+										<span class="text">
+											<h1>{{categorie.nomCategorie}}</h1>
+										</span><img src="{{ vich_uploader_asset(categorie, 'imageFile') }}"></figure>
+								</a>
+							</div>
+						</div>
+				{% endfor %}
+		</section>
+	{% endblock %}
+
