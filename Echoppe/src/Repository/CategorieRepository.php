@@ -42,16 +42,16 @@ class CategorieRepository extends ServiceEntityRepository
         }
     }
 
-    public function findMainCategory(): Collection
+    public function findMainCategory(): array
     {
-        $qb = $this->createQueryBuilder('cat')
-                ->addSelect('*')
-                ->from('categorie', 'c')
-                ->join('categorie_categorie', 'cc', 'c.id = cc.categorie_target')
-                ->groupBy('categorie.nom_categorie')
-                ;
-        $query = $qb->getQuery();
-        return $query->execute();
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT * 
+        FROM categorie 
+        WHERE id NOT IN (SELECT categorie_source FROM categorie_categorie)';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
     }
 
     //SELECT * FROM `categorie` JOIN `categorie_categorie`  ON categorie.id = categorie_categorie.categorie_target GROUP BY categorie.nom_categorie
