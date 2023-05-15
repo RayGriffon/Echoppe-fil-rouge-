@@ -32,7 +32,8 @@ class CategorieType extends AbstractType
                     'class' => 'form-label mt-4'
                 ],
                 'required' => false
-            ]);
+            ])
+            ->add('description');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

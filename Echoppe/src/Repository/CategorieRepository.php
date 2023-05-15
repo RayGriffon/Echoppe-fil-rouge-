@@ -54,7 +54,6 @@ class CategorieRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
-    //SELECT * FROM `categorie` JOIN `categorie_categorie`  ON categorie.id = categorie_categorie.categorie_target GROUP BY categorie.nom_categorie
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
 //     */
@@ -79,4 +78,5 @@ class CategorieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }

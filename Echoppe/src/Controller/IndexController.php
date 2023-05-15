@@ -14,7 +14,6 @@ class IndexController extends AbstractController
     public function index(CategorieRepository $categorieRepository, ProduitRepository $produitRepository): Response
     {
         return $this->render('index/index.html.twig', [
-            'categories' => $categorieRepository->findAll(),
             'sousCategories' => $categorieRepository->findMainCategory(),
             'produits' => $produitRepository->findAll()
         ]);

@@ -13,6 +13,7 @@
 				<th>NomCategorie</th>
 				<th>Catégorie Parent</th>
 				<th>UpdatedAt</th>
+				<th>Description</th>
 				<th>ImageName</th>
 				<th>actions</th>
 			</tr>
@@ -28,6 +29,7 @@
 						{% endfor %}
 					</td>
 					<td>{{ categorie.updatedAt ? categorie.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ categorie.description }}</td>
 					<td>{{ categorie.imageName }}</td>
 					<td>
 						<a href="{{ path('app_categorie_show', {'id': categorie.id}) }}">show</a>

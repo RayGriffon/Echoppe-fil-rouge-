@@ -105,6 +105,20 @@
 
 @media (min-width: 768px) {
 
+    .logoEchoppe {
+        max-width: 250px;
+        max-height: 250px;
+        width: 20em;
+        height: 20em;
+    }
+
+    .logoEchoppeExplo {
+        width: 2em;
+        margin-left: -1em;
+        min-width: 50px;
+        min-height: 50px;
+    }
+
     /* Effet sur image des catégories*/
     .column#imgCategorie img {
         -webkit-filter: sepia(100%);
@@ -177,6 +191,8 @@
 
     .column#imgProduit .textProduit h1 {
         margin: 0;
+        color: black;
+        text-shadow: 1px 1px 0px white;
     }
 
     .column#imgProduit:hover .textProduit {

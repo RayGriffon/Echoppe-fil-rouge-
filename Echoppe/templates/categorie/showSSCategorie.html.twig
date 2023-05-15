@@ -1,9 +1,23 @@
-{% extends 'baseIndex.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Hello IndexController!
 {% endblock %}
 
 {% block body %}
+        <div class="container-fluid d-none d-md-block">
+            <div class="row my-5 pb-5">
+                <div class="offset-md-1 col-md-2">
+                    <img src="/images/categorie/{{categorie.imageName}}" width="250px" height="250px">
+                </div>
+                <div class="col-md-5">
+                    <h1 class="mt-2 mx-0" style="font-size: 6vw;">{{categorie.nomCategorie}}
+                    </h1>
+                </div>
+                <div class="col-md-3">
+                    <p class="mt-5" style="font-size: 1.5vw;">{{categorie.description}}</p>
+                </div>
+            </div>
+        </div>
 	<section>
 		<div class="container-fluid">
 			<div class="row mt-5">
@@ -12,7 +26,7 @@
 				Quand x = 1 ou 2, cela correspond aux colonnes du mileu
 				Quand x = 3, identique à 1 et 2, mais permet de ré-initialiser la variable pour recommencer la boucle#}
 				{% set x = 0 %}
-				{% for categorie in sousCategories %}
+				{% for categorie in categorie.categories %}
 					{% if x == 0 %}
 						<div class="offset-md-2 col-md-2 col-6">
 						{% endif %}
@@ -28,8 +42,8 @@
 									<a href="{{ path('app_SSCategorie_show', {'categorie': categorie.id}) }}" class="column" id="imgCategorie">
 										<figure>
 											<span class="text">
-												<h1>{{categorie.nom_categorie}}</h1>
-											</span><img src="/images/categorie/{{categorie.image_name}}"></figure>
+												<h1>{{categorie.nomCategorie}}</h1>
+											</span><img src="/images/categorie/{{categorie.imageName}}"></figure>
 									</a>
 								</div>
 							</div>
@@ -40,7 +54,7 @@
 			<section>
 				<div class="container-fluid d-none d-md-block d-lg-block d-xl-block">
 					{% set y = 0 %}
-					{% for produit in produits %}
+					{% for produit in categorie.produits %}
 							{% if y == 0 %}
 							<div class="row my-5" style="height: 300px" ;>
 								<div class="offset-1 col-2">

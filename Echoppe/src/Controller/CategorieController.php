@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Form\CategorieType;
+use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/categorie')]
 class CategorieController extends AbstractController
@@ -74,5 +75,13 @@ class CategorieController extends AbstractController
         }
 
         return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/ssCat/{categorie}', name: 'app_SSCategorie_show', methods: ['GET'])]
+    public function showSSCategorie(Categorie $categorie): Response
+    {
+        return $this->render('categorie/showSSCategorie.html.twig', [
+            'categorie' => $categorie
+        ]);
     }
 }
