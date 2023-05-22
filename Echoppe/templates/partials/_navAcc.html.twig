@@ -12,14 +12,14 @@
                         <input class="form-control me-sm-2 dropwdown-item" type="search" placeholder="Rechercher">
                     </div>
                 </form>
-                <a class="nav-link tailleNavBar" href="panier.html">
+                <a class="nav-link tailleNavBar" href="{{ path('panier_index') }}">
                     <div class="d-flex align-items-center">
                         <i class="fa-solid fa-basket-shopping"></i>
-                        <p class="fw-bold m-0 px-2">(0)</p>
+                        <p class="fw-bold m-0 px-2">{{ totalProduit(app.session) }}</p>
                     </div>
                 </a>
 
-                <a class="nav-link tailleNavBar ml-5" href="connexion.html">Login</a>
+                <a class="nav-link tailleNavBar ml-5" href="{{ path('security.login') }}">Login</a>
 
             </div>
         </nav>
@@ -68,14 +68,14 @@
                         <input class="form-control me-sm-2 dropwdown-item" type="search" placeholder="Rechercher">
                     </div>
                 </form>
-                <a class="nav-link tailleNavBar" href="#">
+                <a class="nav-link tailleNavBar" href="{{ path('panier_index') }}">
                     <div class="d-flex align-items-center">
                         <i class="fa-solid fa-basket-shopping"></i>
-                        <p class="fw-bold m-0 px-2">(0)</p>
+                        <p class="fw-bold m-0 px-2">{{ totalProduit(app.session) }}</p>
                     </div>
                 </a>
 
-                <a class="nav-link tailleNavBar ml-5" href="#">Login</a>
+                <a class="nav-link tailleNavBar ml-5" href="{{ path('security.login') }}">Login</a>
 
             </div>
         </nav>

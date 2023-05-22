@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>
 			{% block title %}L'Echoppe
 			{% endblock %}
@@ -22,6 +23,58 @@
 
 		{% block body %}
 			
+		{% endblock %}
+
+	<div class="container-fluid">
+		<div class="row my-5">
+                <div class="offset-1 col-10 offset-md-1 col-md-6">
+                    <h1>Contact</h1>
+                    <form class="row">
+                        <div class="col-12 col-md-12">
+                            <label for="firstname" class="form-label"></label>
+                            <input name="firstname" type="text" class="form-control w-100" id="firstname"
+                                placeholder="Prénom">
+                        </div>
+                        <div class="col-12">
+                            <label for="name" class="form-label"></label>
+                            <input name="name" type="text" class="form-control w-100" id="name" placeholder="Nom">
+                        </div>
+                        <div class="col-12">
+                            <label for="email" class="form-label"></label>
+                            <input name="email" type="email" class="form-control w-100" id="email" placeholder="E-mail">
+                        </div>
+                        <div class="col-12">
+                            <label for="message" class="form-label"></label>
+                            <textarea name="message" class="form-control w-100" id="message" rows="3"
+                                placeholder="Message"></textarea>
+                        </div>
+                        <div class="col-12 my-2">
+                            <button type="submit" class="btn btn-primary w-100">Envoyer</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="offset-1 col-10 col-md-4 align-self-end">
+                    <div class="row">
+                        <div class="col-3 col-md-3 my-3">
+                            <img src="images/logo/instaLogo.png" class="w-75">
+                        </div>
+                        <div class="col-3 col-md-3 my-3">
+                            <img src="images/logo/fbLogo.png" class="w-75">
+                        </div>
+                        <div class="col-3 col-md-3 my-3">
+                            <img src="images/logo/tiktokLogo.png" class="w-75">
+                        </div>
+                        <div class="col-3 col-md-3 my-3">
+                            <img src="images/logo/twiLogo.png" class="w-75">
+                        </div>
+                    </div>
+                </div>
+            </div>
+			</div>
+
+		{% block footer %}
+			{# {% include "partials/_header.html.twig" %} #}
+			{% include "partials/footer.html.twig" %}
 		{% endblock %}
 
 			{% block javascripts %}

@@ -3,44 +3,59 @@
 {% block title %}Produit{% endblock %}
 
 {% block body %}
-    <h1>Produit</h1>
+	<div class="container-fluid">
+		<div class="row mt-3">
+			<div class="offset-md-1 col-md-5 offset-1 col-10">
+				<div id="carouselExampleIndicators" class="carousel slide">
+					<div class="carousel-inner">
+						{% set x = 0 %}
+						{% for image in produit.photos %}
+							{% if x == 0 %}
+								<div class="carousel-item active">
+									{% set x = 1 %}
+								{% else %}
+									<div class="carousel-item">
+									{% endif %}
+									<img src="/images/photo/{{image.imageName}}" class="d-block mx-auto w-100" alt="...">
+								</div>
+							{% endfor %}
+						</div>
+						<div
+							class="carousel-indicators">
+							{# Fixe les boutons du carousel en fonction du nombre d'image #}
+							{% set y = 0 %}
+							{% for image in produit.photos %}
+								<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{y}}" class="active" aria-current="true" aria-label="Slide {{y}}"></button>
+								{% set y = y + 1 %}
+							{% endfor %}
+						</div>
+                        {# Affiche les boutons de défilement du carousel s'il y a plusieurs images #}
+						{% if produit.photos|length > 1 %}
+							<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						{% endif %}
+					</div>
+				</div>
+				<div class="offset-md-0 col-md-4 offset-1 col-10">
+					<div class="d-flex justify-content-between pt-3">
+						<h1>{{ produit.nomProduit }}</h1>
+						<a href="{{path("panier_add", {id: produit.id})}}"><button class="w-100">
+							<i class="fa-solid fa-plus fa-fade fa-2xl pt-2"></i>
+						</button></a>
+					</div>
+					<br>
+					<h2>{{ produit.prixProduit }}
+						€</h2>
+					<br>
+					<p>{{ produit.descriptionProduit }}</p>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ produit.id }}</td>
-            </tr>
-            <tr>
-                <th>NomProduit</th>
-                <td>{{ produit.nomProduit }}</td>
-            </tr>
-            <tr>
-                <th>DescriptionProduit</th>
-                <td>{{ produit.descriptionProduit }}</td>
-            </tr>
-            <tr>
-                <th>PrixProduit</th>
-                <td>{{ produit.prixProduit }}</td>
-            </tr>
-            <tr>
-                <th>TvaProduit</th>
-                <td>{{ produit.tvaProduit }}</td>
-            </tr>
-            <tr>
-                <th>RefProduit</th>
-                <td>{{ produit.refProduit }}</td>
-            </tr>
-            <tr>
-                <th>IsOnline</th>
-                <td>{{ produit.isOnline ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_produit_index') }}">back to list</a>
-
-    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
-
-    {{ include('produit/_delete_form.html.twig') }}
-{% endblock %}

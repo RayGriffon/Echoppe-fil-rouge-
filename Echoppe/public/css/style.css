@@ -203,4 +203,9 @@
         -webkit-filter: grayscale(100%);
         filter: grayscale(100%);
     }
+
+    .carousel-item img {
+        height: 700px;
+        max-height: 700px;
+    }
 }
