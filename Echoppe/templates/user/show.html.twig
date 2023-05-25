@@ -3,36 +3,40 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>Profil de {{ user.pseudo }}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
             <tr>
                 <th>Email</th>
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <th>Nom</th>
+                <td>{{ user.client.nom }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
+                <th>Prenom</th>
+                <td>{{ user.client.prenom }}</td>
             </tr>
             <tr>
-                <th>Pseudo</th>
-                <td>{{ user.pseudo }}</td>
+                <th>Contact</th>
+                <td>{{ user.client.contact }}</td>
             </tr>
+            {% for adresse in user.client.adresse %}
+                <tr>
+                <th>Adresse</th>
+                <td>{{ adresse.pays }}, {{ adresse.nomVille }} {{ adresse.cp }}, {{ adresse.numRue }} {{ adresse.nomRue }} </td>
+                <td><a href="{{ path('app_adresse_edit', {'id': adresse.id}) }}">Modifier</a></td>
+                <td>{{ include('adresse/_delete_form.html.twig') }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+    <a href="{{ path('app_user_edit_profil', {'id': user.id}) }}">Modifier profil</a>
+    <a href="{{ path('app_adresse_new', {'id': user.id}) }}">Ajouter une adresse</a>
+    <a href="{{ path('app_user_edit_password', {'id': user.id}) }}">Modifier mot de passe</a>
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}
