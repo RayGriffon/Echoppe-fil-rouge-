@@ -8,7 +8,7 @@
 
 	<div class="container-fluid">
 
-		<div class="col-12 col-md-3 gx-5 px-5 position-fixed end-0 d-none d-md-block">
+		<div class="col-12 col-md-3 gx-5 px-5 position-fixed end-0 d-none d-md-block h-100">
 			<div class="border p-3">
 				<p>Sous-total</p>
 				<p>Frais de port</p>
@@ -17,7 +17,7 @@
 				<p>Total :
 					{{total}}</p>
 			</div>
-			<button type="button" class="btn rounded-pill my-3">Valider ma commande</button>
+			<a href="{{ path('app_confirmation_donnee') }}" class="btn rounded-pill my-3">Valider ma commande</a>
 		</div>
 		<div class="col-12 d-md-none d-sm-block mt-5">
 			<div class="border p-3">
@@ -28,9 +28,9 @@
 				<p>Total :
 					{{total}}</p>
 			</div>
-			<button type="button" class="btn rounded-pill my-3">Valider ma commande</button>
+			<a href="{{ path('app_confirmation_donnee') }}" class="btn rounded-pill my-3">Valider ma commande</a>
 		</div>
-	</div>
+	
 	<div class="row mt-3">
 		<div class="col-12 offset-md-1 col-md-8 mt-3">
 			{% for element in dataPanier %}

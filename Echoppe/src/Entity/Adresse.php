@@ -110,6 +110,6 @@ class Adresse
 
     public function __toString()
     {
-        return ($this->nomVille)." ".($this->cp).", ".($this->numRue)." ".($this->nomRue);
+        return ($this->pays)." ".($this->cp)." ".($this->nomVille).", ".($this->numRue)." ".($this->nomRue);
     }
 }

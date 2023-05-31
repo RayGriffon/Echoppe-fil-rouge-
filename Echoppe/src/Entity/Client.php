@@ -38,12 +38,12 @@ class Client
     private Collection $adresse;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Commande::class)]
-    private Collection $commande;
+    private Collection $commandes;
 
     public function __construct()
     {
         $this->adresse = new ArrayCollection();
-        $this->commande = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,15 +156,15 @@ class Client
     /**
      * @return Collection<int, Commande>
      */
-    public function getCommande(): Collection
+    public function getCommandes(): Collection
     {
-        return $this->commande;
+        return $this->commandes;
     }
 
     public function addCommande(Commande $commande): self
     {
-        if (!$this->commande->contains($commande)) {
-            $this->commande->add($commande);
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
             $commande->setClient($this);
         }
 
@@ -173,7 +173,7 @@ class Client
 
     public function removeCommande(Commande $commande): self
     {
-        if ($this->commande->removeElement($commande)) {
+        if ($this->commandes->removeElement($commande)) {
             // set the owning side to null (unless already changed)
             if ($commande->getClient() === $this) {
                 $commande->setClient(null);
@@ -182,4 +182,5 @@ class Client
 
         return $this;
     }
+
 }

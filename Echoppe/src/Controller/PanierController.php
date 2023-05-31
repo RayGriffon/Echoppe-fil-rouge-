@@ -2,12 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Entity\Client;
 use App\Entity\Produit;
+use App\Form\ConfirmationType;
+use App\Repository\ClientRepository;
+use App\Repository\AdresseRepository;
 use App\Repository\ProduitRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/panier', name: 'panier_')]
 class PanierController extends AbstractController

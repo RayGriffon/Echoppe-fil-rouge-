@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\CommandeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
@@ -16,16 +15,16 @@ class Commande
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateCommande = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $reglement = null;
 
-    #[ORM\Column]
-    private ?float $reduction = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $reduction = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $coefClient = null;
 
     #[ORM\Column(length: 255)]
@@ -34,40 +33,16 @@ class Commande
     #[ORM\Column(length: 255)]
     private ?string $prenomClient = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateFacture = null;
-
-    #[ORM\Column]
-    private ?int $numRueFacture = null;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $dateFacture = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nomRueFacture = null;
+    private ?string $adresseFacture = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nomVilleFacture = null;
+    private ?string $adresseLivraison = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $cpFacture = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $paysFacture = null;
-
-    #[ORM\Column]
-    private ?int $numRueLivraison = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nomRueLivraison = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nomVilleLivraison = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $cpLivraison = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $paysLivraison = null;
-
-    #[ORM\ManyToOne(inversedBy: 'commande')]
+    #[ORM\ManyToOne(inversedBy: 'commandes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
 
@@ -75,12 +50,13 @@ class Commande
     private Collection $bonLivraison;
 
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Contient::class)]
-    private Collection $contients;
+    private Collection $contient;
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable();
         $this->bonLivraison = new ArrayCollection();
-        $this->contients = new ArrayCollection();
+        $this->contient = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,14 +64,14 @@ class Commande
         return $this->id;
     }
 
-    public function getDateCommande(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->dateCommande;
+        return $this->createdAt;
     }
 
-    public function setDateCommande(\DateTimeInterface $dateCommande): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->dateCommande = $dateCommande;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -105,19 +81,19 @@ class Commande
         return $this->reglement;
     }
 
-    public function setReglement(string $reglement): self
+    public function setReglement(?string $reglement): self
     {
         $this->reglement = $reglement;
 
         return $this;
     }
 
-    public function getReduction(): ?float
+    public function getReduction(): ?int
     {
         return $this->reduction;
     }
 
-    public function setReduction(float $reduction): self
+    public function setReduction(?int $reduction): self
     {
         $this->reduction = $reduction;
 
@@ -129,7 +105,7 @@ class Commande
         return $this->coefClient;
     }
 
-    public function setCoefClient(float $coefClient): self
+    public function setCoefClient(?float $coefClient): self
     {
         $this->coefClient = $coefClient;
 
@@ -160,134 +136,38 @@ class Commande
         return $this;
     }
 
-    public function getDateFacture(): ?\DateTimeInterface
+    public function getDateFacture(): ?\DateTimeImmutable
     {
         return $this->dateFacture;
     }
 
-    public function setDateFacture(\DateTimeInterface $dateFacture): self
+    public function setDateFacture(?\DateTimeImmutable $dateFacture): self
     {
         $this->dateFacture = $dateFacture;
 
         return $this;
     }
 
-    public function getNumRueFacture(): ?int
+    public function getAdresseFacture(): ?string
     {
-        return $this->numRueFacture;
+        return $this->adresseFacture;
     }
 
-    public function setNumRueFacture(int $numRueFacture): self
+    public function setAdresseFacture(string $adresseFacture): self
     {
-        $this->numRueFacture = $numRueFacture;
+        $this->adresseFacture = $adresseFacture;
 
         return $this;
     }
 
-    public function getNomRueFacture(): ?string
+    public function getAdresseLivraison(): ?string
     {
-        return $this->nomRueFacture;
+        return $this->adresseLivraison;
     }
 
-    public function setNomRueFacture(string $nomRueFacture): self
+    public function setAdresseLivraison(string $adresseLivraison): self
     {
-        $this->nomRueFacture = $nomRueFacture;
-
-        return $this;
-    }
-
-    public function getNomVilleFacture(): ?string
-    {
-        return $this->nomVilleFacture;
-    }
-
-    public function setNomVilleFacture(string $nomVilleFacture): self
-    {
-        $this->nomVilleFacture = $nomVilleFacture;
-
-        return $this;
-    }
-
-    public function getCpFacture(): ?string
-    {
-        return $this->cpFacture;
-    }
-
-    public function setCpFacture(string $cpFacture): self
-    {
-        $this->cpFacture = $cpFacture;
-
-        return $this;
-    }
-
-    public function getPaysFacture(): ?string
-    {
-        return $this->paysFacture;
-    }
-
-    public function setPaysFacture(string $paysFacture): self
-    {
-        $this->paysFacture = $paysFacture;
-
-        return $this;
-    }
-
-    public function getNumRueLivraison(): ?int
-    {
-        return $this->numRueLivraison;
-    }
-
-    public function setNumRueLivraison(int $numRueLivraison): self
-    {
-        $this->numRueLivraison = $numRueLivraison;
-
-        return $this;
-    }
-
-    public function getNomRueLivraison(): ?string
-    {
-        return $this->nomRueLivraison;
-    }
-
-    public function setNomRueLivraison(string $nomRueLivraison): self
-    {
-        $this->nomRueLivraison = $nomRueLivraison;
-
-        return $this;
-    }
-
-    public function getNomVilleLivraison(): ?string
-    {
-        return $this->nomVilleLivraison;
-    }
-
-    public function setNomVilleLivraison(string $nomVilleLivraison): self
-    {
-        $this->nomVilleLivraison = $nomVilleLivraison;
-
-        return $this;
-    }
-
-    public function getCpLivraison(): ?string
-    {
-        return $this->cpLivraison;
-    }
-
-    public function setCpLivraison(string $cpLivraison): self
-    {
-        $this->cpLivraison = $cpLivraison;
-
-        return $this;
-    }
-
-    public function getPaysLivraison(): ?string
-    {
-        return $this->paysLivraison;
-    }
-
-    public function setPaysLivraison(string $paysLivraison): self
-    {
-        $this->paysLivraison = $paysLivraison;
+        $this->adresseLivraison = $adresseLivraison;
 
         return $this;
     }
@@ -337,15 +217,15 @@ class Commande
     /**
      * @return Collection<int, Contient>
      */
-    public function getContients(): Collection
+    public function getContient(): Collection
     {
-        return $this->contients;
+        return $this->contient;
     }
 
     public function addContient(Contient $contient): self
     {
-        if (!$this->contients->contains($contient)) {
-            $this->contients->add($contient);
+        if (!$this->contient->contains($contient)) {
+            $this->contient->add($contient);
             $contient->setCommande($this);
         }
 
@@ -354,7 +234,7 @@ class Commande
 
     public function removeContient(Contient $contient): self
     {
-        if ($this->contients->removeElement($contient)) {
+        if ($this->contient->removeElement($contient)) {
             // set the owning side to null (unless already changed)
             if ($contient->getCommande() === $this) {
                 $contient->setCommande(null);

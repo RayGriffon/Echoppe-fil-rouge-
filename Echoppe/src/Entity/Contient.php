@@ -17,9 +17,6 @@ class Contient
     #[ORM\JoinColumn(nullable: false)]
     private ?Produit $produit = null;
 
-    #[ORM\ManyToOne(inversedBy: 'contients')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Commande $commande = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nomProduit = null;
@@ -36,6 +33,10 @@ class Contient
     #[ORM\Column(length: 255)]
     private ?string $refProduit = null;
 
+    #[ORM\ManyToOne(inversedBy: 'contient')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Commande $commande = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,18 +50,6 @@ class Contient
     public function setProduit(?Produit $produit): self
     {
         $this->produit = $produit;
-
-        return $this;
-    }
-
-    public function getCommande(): ?Commande
-    {
-        return $this->commande;
-    }
-
-    public function setCommande(?Commande $commande): self
-    {
-        $this->commande = $commande;
 
         return $this;
     }
@@ -121,6 +110,18 @@ class Contient
     public function setRefProduit(string $refProduit): self
     {
         $this->refProduit = $refProduit;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
 
         return $this;
     }
