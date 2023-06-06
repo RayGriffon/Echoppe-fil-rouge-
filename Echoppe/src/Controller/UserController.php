@@ -6,9 +6,7 @@ use App\Entity\User;
 use App\Entity\Client;
 use App\Form\ProfilType;
 use App\Form\UserType;
-use App\Form\TestFormType;
 use App\Form\UserPasswordType;
-use App\Repository\AdresseRepository;
 use App\Repository\ClientRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -130,49 +128,7 @@ class UserController extends AbstractController
         return $this->renderForm('user/edit_profil.html.twig', [
             'form' => $form,
         ]);
-    }
-
-    // #[Route('/{user}/test', name: 'app_user_test', methods: ['GET', 'POST'])]
-    // public function test(Request $request, User $user, UserRepository $userRepository, ClientRepository $clientRepository, AdresseRepository $adresseRepository): Response
-    // {
-    //     $client = $clientRepository->findOneBy(["profil" => $user]);
-    //     if ($client===null) {
-    //         $client = new Client();
-    //         $client->setProfil($user);
-    //     }
-
-    //     $adresse = $adresseRepository->findOneBy(["client" => $client]);
-
-    //     $form = $this->createForm(TestFormType::class, [
-    //         "pseudo" => $user->getPseudo(),
-    //         "nom" => $client->getNom(),
-    //         "prenom" => $client->getPrenom(),
-    //         "contact" => $client->getContact(),
-    //     ]);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted()) {
-
-    //         // $client = new Client();
-    //         $client->setNom($form->get("nom")->getData());
-    //         $client->setPrenom($form->get("prenom")->getData());
-    //         $client->setContact($form->get("contact")->getData());
-    //         // $user = new User();
-    //         $user->setPseudo($form->get("pseudo")->getData());
-
-    //         $userRepository->save($user, false);
-    //         $clientRepository->save($client, true);
-            
-    //         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-            
-    //     }
-
-    //     return $this->renderForm('user/test.html.twig', [
-    //         'form' => $form,
-    //     ]);
-    // }
-
-    
+    }    
 
     #[Route('/edition-mot-de-passe/{id}', 'app_user_edit_password', methods: ['GET', 'POST'])]
     public function editPassword(

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SearchBarController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="container-fluid">
+		<div class="row mt-5">
+			{% if produits is not empty %}
+				{% for produit in produits %}
+                
+					<a class="column" id="imgProduit" href="{{ path('app_produit_show', {'id': produit.id}) }}">
+                    <div class="mt-4">
+						{% if produit.photos.first() %}
+							<img class="mx-3" style="max-width: 25vh; float:left;" src="/images/photo/{{produit.photos.first().imageName}}"/>
+						{% endif %}
+						<h1>{{produit.nomProduit}}</h1>
+						<p>{{produit.descriptionProduit}}</p>
+                        </div>
+					</a>
+                
+				{% endfor %}
+			{% else %}
+				<p>Aucun produit trouvé.</p>
+			{% endif %}
+		</div>
+	</div>
+
+{% endblock %}
+

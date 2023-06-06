@@ -115,6 +115,15 @@ INSERT INTO `produit_categorie` (`produit_id`, `categorie_id`) VALUES
 (10, 3),
 (11, 3);
 
---
--- Index pour les tables déchargées
---
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`, `created_at`, `updated_at`) VALUES
+(1, 'raygriffon@yahoo.fr', '[\"ROLE_USER\"]', '$2y$13$yrnTjWpGhPyp524h2YOlfeE8dkN5CJ62BWNSVSkFt99KkbOEmvYSC', 'Ray Griffon', '2023-05-23 14:47:07', '2023-05-23 14:47:07'),
+(2, 'test@test.fr', '', '$2y$13$yrnTjWpGhPyp524h2YOlfeE8dkN5CJ62BWNSVSkFt99KkbOEmvYSC', 'Test', '2023-05-30 09:20:05', '2023-05-30 09:20:05');
+
+INSERT INTO `client` (`id`, `profil_id`, `nom`, `prenom`, `contact`, `coef`, `commercial_attribue`) VALUES
+(3, 1, '990', '88', '77', NULL, NULL),
+(4, 2, 'Test', 'Test', '0786147514', NULL, NULL);
+
+INSERT INTO `adresse` (`id`, `client_id`, `num_rue`, `nom_rue`, `nom_ville`, `cp`, `pays`) VALUES
+(5, 3, 123222, 'Test2', 'jsp', '4879651', 'USA'),
+(11, 3, 456, 'impasse', 'fsdfze', 'z15610', 'ard'),
+(13, 4, 142, 'rue du test', 'TestVille', 'z15610', 'USA');

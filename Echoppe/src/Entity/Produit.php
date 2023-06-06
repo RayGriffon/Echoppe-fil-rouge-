@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
+#[Index(name:'search_idx', columns: ['nom_produit', 'description_produit'], flags:["fulltext"])]
 class Produit
 {
     #[ORM\Id]
