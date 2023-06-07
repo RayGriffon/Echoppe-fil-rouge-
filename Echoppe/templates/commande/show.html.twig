@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommandeController!
+{% endblock %}
+
+{% block body %}
+	<h1>Liste de mes commandes</h1>
+
+	<div class="row">
+		{% for commande in commandes %}
+			<div class="col-md-5 mb-4 mx-5">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Commande #{{ commande.id }}</h5>
+						<p class="card-text">
+							<strong>Identité du client:</strong>
+							{{ commande.nomClient }}
+							{{ commande.prenomClient }}
+							<br>
+							<strong>Adresse de facturation:</strong>
+							{{ commande.adresseFacture }}
+							<br>
+							<strong>Adresse de livraison:</strong>
+							{{ commande.adresseLivraison }}
+						</p>
+						<h6 class="card-subtitle mb-2 text-muted">Liste articles:</h6>
+                        {% set x = 0 %}
+						{% for contient in contients %}
+                        
+							{% if contient.commande == commande %}
+								<p>
+									{{ contient.quantite }}
+									{{ contient.nomProduit }}
+									=
+									{{ contient.prixProduit * contient.quantite}} €
+								</p>
+                                {% set x = x + (contient.prixProduit * contient.quantite) %}
+							{% endif %}
+						{% endfor %}
+                        <hr>
+                        Total = {{x}} €
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<div class="col">
+				<p>Aucune commande trouvée</p>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}

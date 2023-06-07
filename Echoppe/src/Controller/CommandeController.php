@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Commande;
 use App\Entity\Contient;
+use Doctrine\ORM\Mapping\Id;
 use App\Form\ConfirmationType;
 use App\Repository\ClientRepository;
 use App\Repository\AdresseRepository;
@@ -14,17 +15,23 @@ use App\Repository\ContientRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/commande')]
+#[IsGranted('ROLE_USER')]
 class CommandeController extends AbstractController
 {
     #[Route('/', name: 'app_commande')]
-    public function index(): Response
+    #[IsGranted('ROLE_ADMIN')]
+    public function index(CommandeRepository $commandeRepository): Response
     {
         return $this->render('commande/index.html.twig', [
-            'controller_name' => 'CommandeController',
+            'commandes' => $commandeRepository->findAll(),
         ]);
     }
 
@@ -97,4 +104,39 @@ class CommandeController extends AbstractController
             'adresses' => $adresses,
         ]);
     }
+
+    #[Route('/show/{user}', name: 'app_liste_commande', methods: ['GET', 'POST'])]
+    public function listeCommande($user, CommandeRepository $commandeRepository, ContientRepository $contientRepository, ClientRepository $clientRepository, Security $security): Response
+    {
+        $client = $clientRepository->findBy(["profil" => $user]);
+        
+        if (!$client) {
+            throw $this->createNotFoundException('Client not found for this user.');
+        }
+        
+        $commandes = $commandeRepository->findBy(['client' => $client]);
+        $contients = $contientRepository->findBy(['commande' => $commandes]);
+    
+        $currentUser = $security->getUser();
+    
+        // Vérifier si l'utilisateur connecté est autorisé
+        $isAllowed = false;
+    
+        foreach ($commandes as $commande) {
+            if ($commande->getClient()->getProfil() === $currentUser || $this->isGranted('ROLE_ADMIN')) {
+                $isAllowed = true;
+                break;
+            }
+        }
+    
+        if (!$isAllowed) {
+            throw new AccessDeniedException('Access Denied.');
+        }
+    
+        return $this->render('commande/show.html.twig', [
+            'commandes' => $commandes,
+            'contients' => $contients
+        ]);
+    }
+    
 }

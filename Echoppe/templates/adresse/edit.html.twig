@@ -1,13 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Adresse{% endblock %}
+{% block title %}Modifier votre adresse
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Adresse</h1>
+	<h1>Modifier votre adresse</h1>
 
-    {{ include('adresse/_form.html.twig', {'button_label': 'Update'}) }}
+	<div>
+		{{ form_start(form) }}
+		{{ form_row(form.numRue) }}
+		{{ form_row(form.nomRue) }}
+		{{ form_row(form.nomVille) }}
+		{{ form_row(form.cp) }}
+		{{ form_row(form.pays) }}
+		{{ form_row(form.submit) }}
+		{{ form_end(form) }}
+	</div>
 
-    <a href="{{ path('app_adresse_index') }}">back to list</a>
-
-    {{ include('adresse/_delete_form.html.twig') }}
+    <div class="mx-5 mt-3">
+	<a href="{{ path('app_user_show', {'id': adresse.client.profil.id}) }}">Retour au profil</a>
+    </div>
 {% endblock %}
+

@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Adresse{% endblock %}
+{% block title %}Nouvelle adresse{% endblock %}
 
 {% block body %}
-    <h1>Create new Adresse</h1>
+    <h1>Création d'une nouvelle adresse</h1>
 
     {{ include('adresse/_form.html.twig') }}
 
-    <a href="{{ path('app_adresse_index') }}">back to list</a>
+    <div class="mx-5 mt-3">
+	    <a href="{{ path('app_user_show', {'id': adresse.client.profil.id}) }}">Retour au profil</a>
+    </div>
 {% endblock %}

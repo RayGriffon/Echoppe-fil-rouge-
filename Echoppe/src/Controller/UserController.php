@@ -4,14 +4,16 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Client;
-use App\Form\ProfilType;
 use App\Form\UserType;
+use App\Form\ProfilType;
 use App\Form\UserPasswordType;
-use App\Repository\ClientRepository;
 use App\Repository\UserRepository;
+use App\Repository\ClientRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -19,6 +21,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
@@ -46,6 +49,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[Security("is_granted('ROLE_USER') and user === user or is_granted('ROLE_ADMIN')")]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -54,6 +58,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Security("is_granted('ROLE_USER') and user === user or is_granted('ROLE_ADMIN')")]
     public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $hasher): Response
     {
 
@@ -85,6 +90,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/editProfil', name: 'app_user_edit_profil', methods: ['GET', 'POST'])]
+    #[Security("is_granted('ROLE_USER') and user === user or is_granted('ROLE_ADMIN')")]
     public function test(Request $request, User $user, UserRepository $userRepository, ClientRepository $clientRepository): Response
     {
 
@@ -121,7 +127,9 @@ class UserController extends AbstractController
             $userRepository->save($user, false);
             $clientRepository->save($client, true);
             
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->render('user/show.html.twig', [
+                'user' => $user,
+            ]);
             
         }
 
@@ -131,6 +139,7 @@ class UserController extends AbstractController
     }    
 
     #[Route('/edition-mot-de-passe/{id}', 'app_user_edit_password', methods: ['GET', 'POST'])]
+    #[Security("is_granted('ROLE_USER') and user === user or is_granted('ROLE_ADMIN')")]
     public function editPassword(
         User $choosenUser,
         Request $request,
@@ -169,6 +178,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[Security("is_granted('ROLE_USER') and user === user or is_granted('ROLE_ADMIN')")]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {

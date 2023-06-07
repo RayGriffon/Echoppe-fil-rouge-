@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Fournisseur;
 use App\Form\FournisseurType;
 use App\Repository\FournisseurRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/fournisseur')]
+#[IsGranted('ROLE_ADMIN')]
 class FournisseurController extends AbstractController
 {
     #[Route('/', name: 'app_fournisseur_index', methods: ['GET'])]

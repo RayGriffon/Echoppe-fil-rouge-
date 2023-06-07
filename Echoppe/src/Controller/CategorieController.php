@@ -4,17 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Form\CategorieType;
-use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/categorie')]
 class CategorieController extends AbstractController
 {
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(CategorieRepository $categorieRepository): Response
     {
         return $this->render('categorie/index.html.twig', [
@@ -23,6 +24,7 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, CategorieRepository $categorieRepository): Response
     {
         $categorie = new Categorie();
@@ -42,6 +44,7 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_categorie_show', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function show(Categorie $categorie): Response
     {
         return $this->render('categorie/show.html.twig', [
@@ -50,6 +53,7 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_categorie_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Categorie $categorie, CategorieRepository $categorieRepository): Response
     {
         $form = $this->createForm(CategorieType::class, $categorie);
@@ -68,6 +72,7 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_categorie_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Categorie $categorie, CategorieRepository $categorieRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->request->get('_token'))) {

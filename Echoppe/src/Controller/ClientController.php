@@ -5,15 +5,19 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Form\ClientType;
 use App\Repository\ClientRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/client')]
+#[IsGranted('ROLE_USER')]
 class ClientController extends AbstractController
 {
     #[Route('/', name: 'app_client_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(ClientRepository $clientRepository): Response
     {
         return $this->render('client/index.html.twig', [
@@ -41,6 +45,7 @@ class ClientController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]
+    #[Security("is_granted('ROLE_USER') and user === client.getProfil() or is_granted('ROLE_ADMIN')")]
     public function show(Client $client): Response
     {
         return $this->render('client/show.html.twig', [
@@ -49,6 +54,8 @@ class ClientController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_client_edit', methods: ['GET', 'POST'])]
+    #[Security("is_granted('ROLE_USER') and user === client.getProfil() or is_granted('ROLE_ADMIN')")]
+
     public function edit(Request $request, Client $client, ClientRepository $clientRepository): Response
     {
         $form = $this->createForm(ClientType::class, $client);
@@ -67,6 +74,7 @@ class ClientController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_client_delete', methods: ['POST'])]
+    #[Security("is_granted('ROLE_USER') and user === client.getProfil() or is_granted('ROLE_ADMIN')")]
     public function delete(Request $request, Client $client, ClientRepository $clientRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {

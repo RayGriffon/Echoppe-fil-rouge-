@@ -36,7 +36,7 @@
 
     <a href="{{ path('app_client_index') }}">back to list</a>
 
-    <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
+    <a href="{{ path('app_user_edit_profil', {'id': client.profil.id}) }}">edit</a>
 
     {{ include('client/_delete_form.html.twig') }}
 {% endblock %}
