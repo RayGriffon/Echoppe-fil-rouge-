@@ -1,6 +1,6 @@
 {% extends 'baseIndex.html.twig' %}
 
-{% block title %}Hello IndexController!
+{% block title %}L'Echoppe - la boutique des aventuriers
 {% endblock %}
 
 {% block body %}
@@ -14,14 +14,14 @@
 				{% set x = 0 %}
 				{% for categorie in sousCategories %}
 					{% if x == 0 %}
-						<div class="offset-md-2 col-md-2 col-6">
+						<div class="offset-lg-2 col-lg-2 col-md-3 col-6">
 						{% endif %}
 						{% if x > 0 and x < 3 %}
-							<div class="md-2 col-md-2 col-6">
+							<div class="lg-2 col-lg-2 col-md-3 col-6">
 							{% endif %}
 							{% if x == 3 %}
 								{% set x = -1 %}
-								<div class="md-2 col-md-2 col-6">
+								<div class="lg-2 col-lg-2 col-md-3 col-6">
 								{% endif %}
 								{% set x = x + 1 %}
 								<div>
@@ -38,7 +38,7 @@
 				</div>
 			</section>
 			<section>
-				<div class="container-fluid d-none d-md-block d-lg-block d-xl-block">
+				<div class="container-fluid d-none d-lg-block d-xl-block">
 					{% set y = 0 %}
 					{% for produit in produits %}
 							{% if y == 0 %}

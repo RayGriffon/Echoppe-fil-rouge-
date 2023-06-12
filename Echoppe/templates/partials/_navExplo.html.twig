@@ -4,7 +4,7 @@
                         src="https://live.staticflickr.com/65535/50396098058_ac12a37fbc_o.gif"></a>
                 <h1 class="mt-2"><a class="nav-link titreEchoppe" href="{{ path('app_index') }}">L'Echoppe</a></h1>
 
-                <ul class="navbar-nav me-md-auto tailleNavBar">
+                <ul class="navbar-nav me-md-auto tailleNavBar d-none d-lg-flex">
                     {% if categorie is defined %}
                         {% for element in categorie.getcategoriesParents %}
                             <li class="nav-item">
@@ -31,13 +31,6 @@
 		{{ render(controller("App\\Controller\\SearchBarController::index")) }}
 		{# Fin du formulaire #}
 
-                <form class="nav-item dropdown d-flex dropwdown d-md-none d-lg-none tailleNavBar mr-5">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-magnifying-glass"></i></a>
-                    <div class="dropdown-menu">
-                        <input class="form-control me-sm-2 dropwdown-item" type="search" placeholder="Rechercher">
-                    </div>
-                </form>
                 <a class="nav-link tailleNavBar" href="{{ path('panier_index') }}">
                     <div class="d-flex align-items-center">
                         <i class="fa-solid fa-basket-shopping"></i>

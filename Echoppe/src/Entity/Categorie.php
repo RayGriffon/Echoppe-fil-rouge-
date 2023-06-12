@@ -2,23 +2,30 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorieRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\CategorieRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
+#[ApiResource(
+    normalizationContext: [ "groups" => ["read:category"]]
+)]
 #[Vich\Uploadable]
 class Categorie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["read:product"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["read:category"])]
     private ?string $nomCategorie = null;
 
     #[ORM\ManyToMany(targetEntity: Produit::class, mappedBy: 'categories')]
@@ -34,12 +41,15 @@ class Categorie
     private ?string $imageName = null;
 
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'categories')]
+    #[Groups(["read:category"])]
     private Collection $categoriesParents;
 
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'categoriesParents')]
+    #[Groups(["read:category"])]
     private Collection $categories;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["read:category"])]
     private ?string $description = null;
 
     public function __construct()

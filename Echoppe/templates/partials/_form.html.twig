@@ -1,4 +1,11 @@
-        <form class="d-flex d-none d-md-flex" method="POST" action="{{ path('search') }}">
-			{{ form_widget(form.mots, { 'attr': { 'class': 'form-control me-sm-2', 'placeholder': 'Mots-clés' } }) }}
-			{{ form_widget(form.Rechercher, { 'attr': { 'class': 'btn btn-secondary my-2 my-sm-0' } }) }}
+
+		<form class="nav-item dropdown d-flex dropwdown tailleNavBar mr-5" method="POST" action="{{ path('search') }}">
+			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+				<i class="fa-solid fa-magnifying-glass"></i>
+			</a>
+			<div class="dropdown-menu">
+				{{ form_widget(form.mots, { 'attr': { 'class': 'form-control me-sm-2', 'placeholder': 'Mots-clés' } }) }}
+				{{ form_widget(form.Rechercher, { 'attr': { 'class': 'btn btn-secondary my-2 my-sm-0' } }) }}
+			</div>
 		</form>
+		

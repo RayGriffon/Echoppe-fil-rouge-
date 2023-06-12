@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\ProduitRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
+#[ApiResource(
+    normalizationContext: [ "groups" => ["read:product"]]
+)]
 #[Index(name:'search_idx', columns: ['nom_produit', 'description_produit'], flags:["fulltext"])]
 class Produit
 {
@@ -19,28 +24,36 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["read:product"])]
     private ?string $nomProduit = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(["read:product"])]
     private ?string $descriptionProduit = null;
 
     #[ORM\Column]
+    #[Groups(["read:product"])]
     private ?float $prixProduit = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(["read:product"])]
     private ?float $tvaProduit = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["read:product"])]
     private ?string $refProduit = null;
 
     #[ORM\Column]
+    #[Groups(["read:product"])]
     private ?bool $isOnline = null;
 
     #[ORM\ManyToOne(inversedBy: 'produit')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["read:product"])]
     private ?Fournisseur $fournisseur = null;
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'produits')]
+    #[Groups(["read:product"])]
     private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Photo::class, orphanRemoval: true)]

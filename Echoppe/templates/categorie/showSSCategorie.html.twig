@@ -1,41 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!
+{% block title %}Catégorie - {{categorie.nomCategorie}}
 {% endblock %}
 
 {% block body %}
-        <div class="container-fluid d-none d-md-block">
-            <div class="row my-5 pb-5">
-                <div class="offset-md-1 col-md-2">
-                    <img src="/images/categorie/{{categorie.imageName}}" width="250px" height="250px">
-                </div>
-                <div class="col-md-5">
-                    <h1 class="mt-2 mx-0" style="font-size: 6vw;">{{categorie.nomCategorie}}
-                    </h1>
-                </div>
-                <div class="col-md-3">
-                    <p class="mt-5" style="font-size: 1.5vw;">{{categorie.description}}</p>
-                </div>
-            </div>
-        </div>
+	<div class="container-fluid d-none d-lg-block">
+		<div class="row my-5 pb-5">
+			<div class="offset-lg-1 col-lg-2">
+				<img src="/images/categorie/{{categorie.imageName}}" width="250px" height="250px">
+			</div>
+			<div class="col-lg-5">
+				<h1 class="mt-2 mx-0" style="font-size: 6vw;">{{categorie.nomCategorie}}
+				</h1>
+			</div>
+			<div class="col-lg-3">
+				<p class="mt-5" style="font-size: 1.5vw;">{{categorie.description}}</p>
+			</div>
+		</div>
+	</div>
 	<section>
 		<div class="container-fluid">
 			<div class="row mt-5">
-			{# La variable x va permettre d'afficher le bon css.
-				Quand x = 0, cela revient à la première colonne (avec un offset)
-				Quand x = 1 ou 2, cela correspond aux colonnes du mileu
-				Quand x = 3, identique à 1 et 2, mais permet de ré-initialiser la variable pour recommencer la boucle#}
+			<h1 class="d-block d-sm-none">{{categorie.nomCategorie}}</h1>
+				{# La variable x va permettre d'afficher le bon css.
+								Quand x = 0, cela revient à la première colonne (avec un offset)
+								Quand x = 1 ou 2, cela correspond aux colonnes du mileu
+								Quand x = 3, identique à 1 et 2, mais permet de ré-initialiser la variable pour recommencer la boucle#}
 				{% set x = 0 %}
 				{% for categorie in categorie.categories %}
 					{% if x == 0 %}
-						<div class="offset-md-2 col-md-2 col-6">
+						<div class="offset-lg-2 col-lg-2 col-6">
 						{% endif %}
 						{% if x > 0 and x < 3 %}
-							<div class="md-2 col-md-2 col-6">
+							<div class="lg-2 col-lg-2 col-6">
 							{% endif %}
 							{% if x == 3 %}
 								{% set x = -1 %}
-								<div class="md-2 col-md-2 col-6">
+								<div class="lg-2 col-lg-2 col-6">
 								{% endif %}
 								{% set x = x + 1 %}
 								<div>
@@ -52,35 +53,71 @@
 				</div>
 			</section>
 			<section>
-				<div class="container-fluid d-none d-md-block d-lg-block d-xl-block">
+				{# Affichage grands écrans #}
+				<div class="container-fluid d-none d-lg-block d-xl-block">
 					{% set y = 0 %}
 					{% for produit in categorie.produits %}
-							{% if y == 0 %}
-							<div class="row my-5" style="height: 300px" ;>
-								<div class="offset-1 col-2">
-							{% endif %}
-							{% if y > 0 and y < 5 %}
-								<div class="col-2">
-							{% endif %}
-							{% if y == 5 %}
-								<div class="col-2">
-							{% endif %}
-								{% set y = y + 1 %}
-									<a class="column" id="imgProduit" href="{{ path('app_produit_show', {'id': produit.id}) }}">
-										{% if produit.photos.first() %}
-										<div class="h-100" style="background-image: url(/images/photo/{{produit.photos.first().imageName}}); background-repeat: round;">
-											<div class="textProduit">
-												<h1>{{produit.nomProduit}}</h1>
-											</div>
-										</div>{% endif %}
-									</a>
-								</div>
-							{% if y == 5 %}
-								{% set y = 0 %}
-								</div>
-							{% endif %}
+						{% if y == 0 %}
+							<div class="row my-md-5 my-3 tailleProduitCategorie" ;>
+								<div class="offset-md-1 col-12 col-md-2 my-md-2 tailleProduit">
+								{% endif %}
+								{% if y > 0 and y < 5 %}
+									<div class="col-12 col-md-2 my-md-2 tailleProduit">
+									{% endif %}
+									{% if y == 5 %}
+										<div class="col-12 col-md-2 my-md-2 tailleProduit">
+										{% endif %}
+										{% set y = y + 1 %}
+										<a class="column" id="imgProduit" href="{{ path('app_produit_show', {'id': produit.id}) }}">
+											{% if produit.photos.first() %}
+												<div class="h-100" style="background-image: url(/images/photo/{{produit.photos.first().imageName}}); background-repeat: round no-repeat;">
+													<div class="textProduit">
+														<h1>{{produit.nomProduit}}</h1>
+													</div>
+												</div>
+											{% endif %}
+										</a>
+									</div>
+									{% if y == 5 %}
+										{% set y = 0 %}
+									</div>
+								{% endif %}
 							{% endfor %}
-							</div>
 						</div>
-					</section>
-				{% endblock %}
+					</div>
+					{# Affichage mobile #}
+					<div class="container-fluid d-xs-block d-sm-block d-md-block d-lg-none d-xl-none">
+						<h1>Articles</h1>
+						{% set y = 0 %}
+						{% for produit in categorie.produits %}
+							{% if y == 0 %}
+								<div class="row my-lg-5 my-3">
+									<div class="offset-lg-1 col-6 col-lg-2 my-lg-2">
+									{% endif %}
+									{% if y > 0 and y < 6 %}
+										<div class="col-6 col-lg-2 my-lg-2">
+										{% endif %}
+										{% if y == 6 %}
+											<div class="col-6 col-lg-2 my-lg-2">
+											{% endif %}
+											{% set y = y + 1 %}
+											<a href="{{ path('app_produit_show', {'id': produit.id}) }}" id="imgCategorie" class="column">
+												{% if produit.photos.first() %}
+													<figure>
+														<span class="text">
+															<h1 class="text-truncate">{{ produit.nomProduit }}</h1>
+														</span>
+														<img src="/images/photo/{{ produit.photos.first().imageName }}">
+													</figure>
+												{% endif %}
+											</a>
+										</div>
+										{% if y == 6 %}
+											{% set y = 0 %}
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+
+						</section>
+					{% endblock %}

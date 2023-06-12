@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Confirmation de données</h1>
+    <h1>Confirmation des données</h1>
 
+<div class="mx-5 mt-3">
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <button type="submit">Envoyer</button>
     {{ form_end(form) }}
-
+</div>
 {% endblock %}

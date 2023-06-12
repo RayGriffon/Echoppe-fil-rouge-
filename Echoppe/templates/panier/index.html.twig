@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!
+{% block title %}Votre panier !
 {% endblock %}
 
 {% block body %}
@@ -8,42 +8,42 @@
 
 	<div class="container-fluid">
 
-		<div class="col-12 col-md-3 gx-5 px-5 position-fixed end-0 d-none d-md-block h-100">
+		<div class="col-12 col-lg-3 gx-5 px-5 position-fixed end-0 d-none d-lg-block h-100">
 			<div class="border p-3">
-				<p>Sous-total</p>
-				<p>Frais de port</p>
-				<p>Réduction</p>
+				<p>Sous-total : {{total}} €</p>  {% set x = total %}
+				<p>Frais de port : {% if total > 99 %}0 € {% else %} 5 € {% set x = x + 5 %} {% endif %}</p> 
+				<p>Réduction : </p>
 				<hr>
 				<p>Total :
-					{{total}}</p>
+					{{x}} €</p>
 			</div>
 			<a href="{{ path('app_confirmation_donnee') }}" class="btn rounded-pill my-3">Valider ma commande</a>
 		</div>
-		<div class="col-12 d-md-none d-sm-block mt-5">
+		<div class="col-12 d-lg-none d-sm-block mt-5">
 			<div class="border p-3">
-				<p>Sous-total</p>
-				<p>Frais de port</p>
-				<p>Réduction</p>
+				<p>Sous-total : {{total}} €</p>
+				<p>Frais de port : {% if total > 99 %}0 € {% else %} 5 € {% endif %}</p> 
+				<p>Réduction : </p>
 				<hr>
 				<p>Total :
-					{{total}}</p>
+					{{x}} €</p>
 			</div>
 			<a href="{{ path('app_confirmation_donnee') }}" class="btn rounded-pill my-3">Valider ma commande</a>
 		</div>
 	
 	<div class="row mt-3">
-		<div class="col-12 offset-md-1 col-md-8 mt-3" style="height: 100vh;">
+		<div class="col-12 offset-lg-1 col-lg-8 mt-3" style="height: 100vh;">
 			{% for element in dataPanier %}
 				<div class="row mt-3">
-					<div class="col-5 col-md-2">
+					<div class="col-6 col-lg-2">
 						<img src="/images/photo/{{element.produit.photos.first().imageName}}" style="max-width: 150px; max-height: 150px;">
 					</div>
-					<div class="col-6 col-md-5 mt-3">
+					<div class="col-6 col-lg-5 mt-3">
 						<h1>{{element.produit.nomProduit}}</h1>
 						<h2>{{element.produit.prixProduit}}
 							€</h2>
 					</div>
-					<div class="col-6 col-md-5 d-flex">
+					<div class="col-12 col-lg-5 d-flex">
 						<a class="mt-4 mx-3 btn btn-danger" style="height: min-content;" href="{{path("panier_remove", {id: element.produit.id})}}">
 							<h1 class="bi bi-cart-dash"></h1>
 						</a>
@@ -51,8 +51,7 @@
 						<a class="mt-4 mx-3 btn btn-success" style="height: min-content;" href="{{path("panier_add", {id: element.produit.id})}}">
 							<h1 class="bi bi-cart-plus"></h1>
 						</a>
-						<h2 class="mt-5 mx-3">{{element.quantite * element.produit.prixProduit}}
-							€</h2>
+						<h2 class="mt-5 mx-lg-3">{{element.quantite * element.produit.prixProduit}} €</h2>
 					</div>
 				</div>
 			{% else %}

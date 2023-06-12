@@ -1,7 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark mt-3 d-none d-md-block">
 	<div class="container-fluid justify-content-end">
-
-
 		{# Formulaire de recherche #}
 		{{ render(controller("App\\Controller\\SearchBarController::index")) }}
 		{# Fin du formulaire #}
@@ -26,8 +24,6 @@
 		{% else %}
 			<a class="nav-link tailleNavBar ml-5" href="{{ path('security.login') }}">Se connecter</a>
 		{% endif %}
-
-
 	</div>
 </nav>
 
@@ -55,33 +51,11 @@
 		<h1 class="mt-2">
 			<a class="nav-link titreEchoppe" href="{{ path('app_index') }}">L'Echoppe</a>
 		</h1>
-
-		<ul class="navbar-nav me-md-auto tailleNavBar">
-			<li class="nav-item">
-				<a class="nav-link active" href="#">Catégorie
-					<span class="visually-hidden">(current)</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">Sous-catégorie</a>
-			</li>
-
-		</ul>
-
-		<form class="d-flex d-none d-md-flex">
-			<input class="form-control me-sm-2" type="search" placeholder="Rechercher">
-			<button class="btn btn-secondary my-2 my-sm-0" type="submit">
-				<i class="fa-solid fa-magnifying-glass"></i>
-			</button>
-		</form>
-		<form class="nav-item dropdown d-flex dropwdown d-md-none d-lg-none tailleNavBar mr-5">
-			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-				<i class="fa-solid fa-magnifying-glass"></i>
-			</a>
-			<div class="dropdown-menu">
-				<input class="form-control me-sm-2 dropwdown-item" type="search" placeholder="Rechercher">
-			</div>
-		</form>
+		
+		{# Formulaire de recherche #}
+		{{ render(controller("App\\Controller\\SearchBarController::index")) }}
+		{# Fin du formulaire #}
+		
 		<a class="nav-link tailleNavBar" href="{{ path('panier_index') }}">
 			<div class="d-flex align-items-center">
 				<i class="fa-solid fa-basket-shopping"></i>

@@ -21,11 +21,18 @@
 
 /* /!\ Petits écrans */
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
     .logoEchoppe {
         width: 2em;
         height: 2em;
         margin-left: -1em;
+    }
+
+    .logoEchoppeExplo {
+        width: 2em;
+        margin-left: -1em;
+        min-width: 50px;
+        min-height: 50px;
     }
 
     .titreEchoppe {
@@ -54,6 +61,11 @@
         position: fixed !important;
         top: 3em !important;
         width: 100% !important;
+    }
+
+    .tailleProduit {
+        height: 100em !important;
+        max-height: 700px;
     }
 
     /* Effet sur image des catégories*/
@@ -98,12 +110,30 @@
         text-align: center;
     }
 
+/* Moyens écrans */
+
+@media (min-width: 820px) and (max-width: 1000px) {
+    .logoEchoppe {
+        width: 8em;
+        height: 8em;
+        margin-left: -1em;
+    }
+
+    .logoEchoppeExplo {
+        width: 2em;
+        margin-left: -1em;
+        min-width: 50px;
+        min-height: 50px;
+    }
+}
 
 }
 
-/* /!\ Moyens et grands écrans */
 
-@media (min-width: 768px) {
+
+/* /!\ Grands écrans */
+
+@media (min-width: 1000px) {
 
     .logoEchoppe {
         max-width: 250px;
@@ -160,6 +190,10 @@
         filter: sepia(0);
         -webkit-transform: scale(1);
         transform: scale(1);
+    }
+
+    .tailleProduitCategorie {
+        height: 300px;
     }
 
     /*Effet sur image des produits */

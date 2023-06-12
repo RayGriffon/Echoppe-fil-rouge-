@@ -9,7 +9,6 @@
 		<div class="row mt-5" style="height: 100vh;">
 			{% if produits is not empty %}
 				{% for produit in produits %}
-                
 					<a class="column" id="imgProduit" href="{{ path('app_produit_show', {'id': produit.id}) }}">
                     <div class="mt-4">
 						{% if produit.photos.first() %}
@@ -19,7 +18,6 @@
 						<p>{{produit.descriptionProduit}}</p>
                         </div>
 					</a>
-                
 				{% endfor %}
 			{% else %}
 				<p>Aucun produit trouvé.</p>
