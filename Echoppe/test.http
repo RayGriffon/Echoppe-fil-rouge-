@@ -1,0 +1,31 @@
+POST https://nathan.amorce.org/api/produits
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nomProduit":"Test",
+    "descriptionProduit":"Test",
+    "prixProduit":4,
+    "tvaProduit":4,
+    "refProduit":"Res",
+    "isOnline":true,
+    "fournisseur":"/api/fournisseurs/1",
+    "categories":["/api/categories/2"]
+}
+
+###
+
+PUT https://nathan.amorce.org/api/produits/17
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nomProduit":"Test2",
+    "descriptionProduit":"Test",
+    "prixProduit":40,
+    "tvaProduit":4,
+    "refProduit":"Res",
+    "isOnline":true,
+    "fournisseur":"/api/fournisseurs/1",
+    "categories":["/api/categories/2"]
+}
