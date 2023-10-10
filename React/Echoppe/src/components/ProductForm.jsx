@@ -135,15 +135,7 @@ const ProductForm = ({ onSubmit, onCancel, editedProduct }) => {
                 <label>Catégories:</label>
                 {categoriesList.map(category => (
                     <div key={category.id}>
-                        <input
-                            type="checkbox"
-                            value={category.id}
-                            checked={categories.includes(category.id)}
-                            onChange={e => {
-                                handleCategoryChange(e, category.id)
-
-                            }}
-                        />
+                        <input type="checkbox" value={category.id} checked={categories.includes(category.id)} onChange={e => { handleCategoryChange(e, category.id)}}/>
                         <label>{category.nomCategorie}</label>
                     </div>
                 ))}
